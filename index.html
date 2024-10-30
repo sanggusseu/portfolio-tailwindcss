@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body
-    class="bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300"
+    class="bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300 break-keep"
   >
     <header class="sticky top-0 w-full backdrop-blur-lg bg-opacity-90 z-50">
       <nav
@@ -151,21 +151,29 @@
       </nav>
     </header>
     <main class="container max-w-4xl mx-auto px-6 py-12 space-y-16">
-      <section id="home" class="flex items-center justify-between">
-        <div class="shrink-0 mr-10">
+      <section
+        id="home"
+        class="flex flex-col md:flex-row items-center md:justify-between"
+      >
+        <div class="shrink-0 mb-4 md:mr-10 md:mb-0">
           <img
             class="w-56 h-56 rounded-full object-cover border-4"
             src="https://github.com/user-attachments/assets/3af758b4-ae6a-42c5-afa2-2776f2dc9012"
             alt="황상은 프로필 사진"
           />
         </div>
-        <div class="text-right">
+        <div class="text-center md:text-right">
           <h2 class="text-3xl font-bold mb-2">황상은</h2>
-          <strong class="block mb-4"
+          <strong class="relative md:static inline-block md:block mb-4"
             >즐기는 개발자
-            <span class="inline-block animate-bounce">😎</span></strong
+            <span
+              class="absolute -right-6 md:static inline-block animate-bounce"
+              >😎</span
+            ></strong
           >
-          <p class="text-base leading-normal text-gray-600 dark:text-gray-400">
+          <p
+            class="max-w-[36rem] md:max-w-none text-base leading-normal text-gray-600 dark:text-gray-400"
+          >
             사용자 경험을 개선하고, 실질적인 가치를 제공하는 데 집중하고
             있습니다. 새로운 기술을 배우고 적용하는 것을 두려워하지 않으며, 팀과
             함께 성장하는 개발자가 되고자 합니다.
