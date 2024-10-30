@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" class="dark">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -85,10 +85,11 @@
             </li>
           </ul>
           <button
+            id="darkModeToggleBtn"
             class="focus:outline-none focus:ring focus:ring-blue-500 bg-gray-200 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center"
             type="button"
           >
-            <i class="fas fa-moon to-gray-700 dark:text-yellow-400"></i>
+            <i class="fas fa-moon text-gray-700"></i>
           </button>
         </div>
       </nav>
@@ -405,5 +406,30 @@
         <p>&copy; 2024 황상은. All rights reserved.</p>
       </div>
     </footer>
+
+    <script>
+      const $html = document.documentElement;
+      const $darkModeToggleBtn = document.getElementById('darkModeToggleBtn');
+      const moon = 'fas fa-moon text-gray-700';
+      const sun = 'fa-solid fa-sun dark:text-yellow-400';
+      function initTheme() {
+        if (localStorage.theme !== 'dark') return;
+        $html.classList.add('dark');
+        $darkModeToggleBtn.querySelector('i').className = sun;
+      }
+      function toggleDarkMode() {
+        $html.classList.toggle('dark');
+        if ($html.classList.contains('dark')) {
+          localStorage.theme = 'dark';
+          $darkModeToggleBtn.querySelector('i').className = sun;
+        } else {
+          localStorage.theme = 'light';
+          $darkModeToggleBtn.querySelector('i').className = moon;
+        }
+      }
+      $darkModeToggleBtn.addEventListener('click', toggleDarkMode);
+
+      initTheme();
+    </script>
   </body>
 </html>
