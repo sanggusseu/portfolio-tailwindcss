@@ -493,6 +493,7 @@
       const $sidebarBtn = document.querySelector('#sidebarBtn');
       const $sidebarCloseBtn = document.querySelector('#sidebarCloseBtn');
       const $dimmed = document.querySelector('.dimmed');
+      const $emailForm = document.querySelector('#emailForm');
       const moon = 'fas fa-moon text-gray-700';
       const sun = 'fa-solid fa-sun dark:text-yellow-400';
       function initTheme() {
@@ -519,12 +520,24 @@
       function toggleSidebar() {
         document.body.classList.toggle('sidebar-open');
       }
+
       $darkModeToggleBtns.forEach((btn) =>
         btn.addEventListener('click', toggleDarkMode)
       );
       $sidebarBtn.addEventListener('click', toggleSidebar);
       $dimmed.addEventListener('click', toggleSidebar);
       $sidebarCloseBtn.addEventListener('click', toggleSidebar);
+
+      function sendMail() {
+        const name = $emailForm.querySelector('#name').value;
+        const email = $emailForm.querySelector('#email').value;
+        const content = $emailForm.querySelector('#content').value;
+        window.location.href = `mailto:sanggusseu@gmail.com?subject=${name}님이 보낸 메일입니다.&body=${content} 아래 메일로 회신 부탁드립니다. ${email}`;
+      }
+      $emailForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendMail();
+      });
 
       initTheme();
     </script>
