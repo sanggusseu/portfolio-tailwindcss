@@ -21,32 +21,30 @@
     />
     <!-- tailwindcss CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      body {
-        font-family: 'Noto Sans KR', serif;
-      }
-    </style>
     <script>
       tailwind.config = {
         darkMode: 'selector',
       };
     </script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body
     class="bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300"
   >
     <header class="sticky top-0 w-full backdrop-blur-lg bg-opacity-90 z-50">
       <nav
-        class="container max-w-4xl mx-auto flex items-center justify-between px-6 py-3"
+        class="container max-w-4xl mx-auto h-14 md:h-auto flex items-center justify-between px-6 py-3"
       >
-        <div class="flex items-center gap-x-2">
+        <div
+          class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] md:static md:translate-x-0 md:translate-y-0 flex items-center gap-x-2"
+        >
           <h1 class="text-2xl font-bold"><a href="/">황상은</a></h1>
-          <p class="text-sm text-gray-500 dark:text-gray-300">
+          <p class="hidden md:block text-sm text-gray-500 dark:text-gray-300">
             프론트엔드 개발자
           </p>
         </div>
 
-        <div class="flex gap-x-2">
+        <div class="hidden md:flex gap-x-2">
           <ul class="flex items-center gap-x-2">
             <li>
               <a
@@ -92,6 +90,64 @@
             <i class="fas fa-moon text-gray-700"></i>
           </button>
         </div>
+
+        <button id="sidebarBtn" type="button" class="md:hidden">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+
+        <aside
+          class="sidebar fixed z-100 top-0 left-0 h-screen p-6 bg-white dark:bg-gray-900 w-52 md:hidden -translate-x-full transition-transform duration-300"
+        >
+          <div class="w-full flex justify-end mb-4">
+            <button id="sidebarCloseBtn" type="button">
+              <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+          </div>
+          <ul class="w-full flex flex-col gap-y-1 mb-4">
+            <li>
+              <a
+                class="block p-2 font-medium hover:text-blue-500 transition-colors"
+                href="#home"
+                >홈</a
+              >
+            </li>
+            <li>
+              <a
+                class="block p-2 font-medium hover:text-blue-500 transition-colors"
+                href="#about"
+                >소개</a
+              >
+            </li>
+            <li>
+              <a
+                class="block p-2 font-medium hover:text-blue-500 transition-colors"
+                href="#skills"
+                >기술</a
+              >
+            </li>
+            <li>
+              <a
+                class="block p-2 font-medium hover:text-blue-500 transition-colors"
+                href="#projects"
+                >프로젝트</a
+              >
+            </li>
+            <li>
+              <a
+                class="block p-2 font-medium hover:text-blue-500 transition-colors"
+                href="#contact"
+                >연락처</a
+              >
+            </li>
+          </ul>
+          <button
+            id="darkModeToggleBtn"
+            class="focus:outline-none focus:ring focus:ring-blue-500 bg-gray-200 dark:bg-gray-700 rounded-lg w-full h-10 flex items-center justify-center"
+            type="button"
+          >
+            <i class="fas fa-moon text-gray-700"></i>
+          </button>
+        </aside>
       </nav>
     </header>
     <main class="container max-w-4xl mx-auto px-6 py-12 space-y-16">
@@ -407,27 +463,49 @@
       </div>
     </footer>
 
+    <div
+      class="dimmed hidden fixed top-0 left-0 w-full h-screen bg-black/50 z-70"
+    ></div>
+
     <script>
       const $html = document.documentElement;
-      const $darkModeToggleBtn = document.getElementById('darkModeToggleBtn');
+      const $darkModeToggleBtns =
+        document.querySelectorAll('#darkModeToggleBtn');
+      const $sidebarBtn = document.querySelector('#sidebarBtn');
+      const $sidebarCloseBtn = document.querySelector('#sidebarCloseBtn');
+      const $dimmed = document.querySelector('.dimmed');
       const moon = 'fas fa-moon text-gray-700';
       const sun = 'fa-solid fa-sun dark:text-yellow-400';
       function initTheme() {
         if (localStorage.theme !== 'dark') return;
         $html.classList.add('dark');
-        $darkModeToggleBtn.querySelector('i').className = sun;
+        $darkModeToggleBtns.forEach(
+          (btn) => (btn.querySelector('i').className = sun)
+        );
       }
       function toggleDarkMode() {
         $html.classList.toggle('dark');
         if ($html.classList.contains('dark')) {
           localStorage.theme = 'dark';
-          $darkModeToggleBtn.querySelector('i').className = sun;
+          $darkModeToggleBtns.forEach(
+            (btn) => (btn.querySelector('i').className = sun)
+          );
         } else {
           localStorage.theme = 'light';
-          $darkModeToggleBtn.querySelector('i').className = moon;
+          $darkModeToggleBtns.forEach(
+            (btn) => (btn.querySelector('i').className = moon)
+          );
         }
       }
-      $darkModeToggleBtn.addEventListener('click', toggleDarkMode);
+      function toggleSidebar() {
+        document.body.classList.toggle('sidebar-open');
+      }
+      $darkModeToggleBtns.forEach((btn) =>
+        btn.addEventListener('click', toggleDarkMode)
+      );
+      $sidebarBtn.addEventListener('click', toggleSidebar);
+      $dimmed.addEventListener('click', toggleSidebar);
+      $sidebarCloseBtn.addEventListener('click', toggleSidebar);
 
       initTheme();
     </script>
