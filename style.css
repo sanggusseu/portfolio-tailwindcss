@@ -17,3 +17,11 @@ body.sidebar-open .sidebar {
 body.sidebar-open .dimmed {
   display: block;
 }
+
+#home,
+#about,
+#skills,
+#projects,
+#contact {
+  scroll-margin-top: 4rem;
+}
